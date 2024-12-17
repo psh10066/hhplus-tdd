@@ -1,33 +1,29 @@
 package io.hhplus.tdd.point
 
-import io.hhplus.tdd.database.PointHistoryTable
-import io.hhplus.tdd.database.UserPointTable
 import org.springframework.stereotype.Service
 
 @Service
 class PointService(
-    private val pointHistoryTable: PointHistoryTable,
-    private val userPointTable: UserPointTable
+    private val pointReader: PointReader,
+    private val pointUpdater: PointUpdater,
 ) {
     fun getPoint(id: Long): UserPoint {
-        return userPointTable.selectById(id)
+        return pointReader.getPoint(id)
     }
 
     fun getHistory(id: Long): List<PointHistory> {
-        return pointHistoryTable.selectAllByUserId(id)
+        return pointReader.getHistory(id)
     }
 
     fun charge(id: Long, amount: Long): UserPoint {
-        val userPoint = userPointTable.selectById(id)
-        val newPoint = userPoint.point + amount
-        pointHistoryTable.insert(id, newPoint, TransactionType.CHARGE, System.currentTimeMillis())
-        return userPointTable.insertOrUpdate(id, newPoint)
+        val userPoint = pointUpdater.charge(id, amount)
+        pointUpdater.insertHistory(id, userPoint.point, TransactionType.CHARGE, userPoint.updateMillis)
+        return userPoint
     }
 
     fun use(id: Long, amount: Long): UserPoint {
-        val userPoint = userPointTable.selectById(id)
-        val newPoint = userPoint.point - amount
-        pointHistoryTable.insert(id, newPoint, TransactionType.USE, System.currentTimeMillis())
-        return userPointTable.insertOrUpdate(id, newPoint)
+        val userPoint = pointUpdater.use(id, amount)
+        pointUpdater.insertHistory(id, userPoint.point, TransactionType.USE, userPoint.updateMillis)
+        return userPoint
     }
 }
