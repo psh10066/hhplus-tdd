@@ -10,12 +10,12 @@ class PointUpdater(
 
     fun charge(id: Long, amount: Long): UserPoint {
         val userPoint = userPointRepository.getById(id)
-        return userPointRepository.save(id, userPoint.point + amount)
+        return userPointRepository.save(userPoint.chargePoint(amount))
     }
 
     fun use(id: Long, amount: Long): UserPoint {
         val userPoint = userPointRepository.getById(id)
-        return userPointRepository.save(id, userPoint.point - amount)
+        return userPointRepository.save(userPoint.usePoint(amount))
     }
 
     fun insertHistory(userId: Long, amount: Long, transactionType: TransactionType, updateMillis: Long): PointHistory {

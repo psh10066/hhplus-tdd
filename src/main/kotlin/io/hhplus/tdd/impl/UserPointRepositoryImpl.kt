@@ -14,7 +14,7 @@ class UserPointRepositoryImpl(
         return userPointTable.selectById(id)
     }
 
-    override fun save(id: Long, amount: Long): UserPoint {
-        return userPointTable.insertOrUpdate(id, amount)
+    override fun save(userPoint: UserPoint): UserPoint {
+        return userPointTable.insertOrUpdate(userPoint.id, userPoint.point)
     }
 }

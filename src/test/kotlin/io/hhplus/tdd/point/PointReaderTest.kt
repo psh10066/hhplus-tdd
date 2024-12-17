@@ -22,7 +22,7 @@ class PointReaderTest {
     @Test
     fun `포인트를 조회할 수 있다`() {
         // given
-        val savedPoint = userPointRepository.save(1L, 100L)
+        val savedPoint = userPointRepository.save(UserPoint(1L, 100L, 123L))
 
         // when
         val result = pointReader.getPoint(1L)

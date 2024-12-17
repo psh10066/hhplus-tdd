@@ -22,7 +22,7 @@ class PointUpdaterTest {
     @Test
     fun `포인트를 충전할 수 있다`() {
         // given
-        userPointRepository.save(1L, 1000L)
+        userPointRepository.save(UserPoint(1L, 1000L, 123L))
 
         // when
         val result = pointUpdater.charge(1L, 100L)
@@ -35,7 +35,7 @@ class PointUpdaterTest {
     @Test
     fun `포인트를 사용할 수 있다`() {
         // given
-        userPointRepository.save(1L, 1000L)
+        userPointRepository.save(UserPoint(1L, 1000L, 123L))
 
         // when
         val result = pointUpdater.use(1L, 100L)

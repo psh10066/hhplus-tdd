@@ -1,6 +1,7 @@
 package io.hhplus.tdd.impl
 
 import io.hhplus.tdd.database.UserPointTable
+import io.hhplus.tdd.point.UserPoint
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -31,7 +32,7 @@ class UserPointRepositoryImplIT {
     @Test
     fun `포인트를 저장할 수 있다`() {
         // when
-        val result = userPointRepositoryImpl.save(1L, 1000L)
+        val result = userPointRepositoryImpl.save(UserPoint(1L, 1000L, 123L))
 
         // then
         val savedPoint = userPointTable.selectById(1L)

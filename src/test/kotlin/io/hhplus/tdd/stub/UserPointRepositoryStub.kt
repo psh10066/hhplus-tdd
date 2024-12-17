@@ -11,9 +11,9 @@ class UserPointRepositoryStub : UserPointRepository {
         return table[id] ?: UserPoint(id = id, point = 0, updateMillis = System.currentTimeMillis())
     }
 
-    override fun save(id: Long, amount: Long): UserPoint {
-        val userPoint = UserPoint(id = id, point = amount, updateMillis = System.currentTimeMillis())
-        table[id] = userPoint
-        return userPoint
+    override fun save(userPoint: UserPoint): UserPoint {
+        val newUserPoint = UserPoint(id = userPoint.id, point = userPoint.point, updateMillis = System.currentTimeMillis())
+        table[userPoint.id] = newUserPoint
+        return newUserPoint
     }
 }
