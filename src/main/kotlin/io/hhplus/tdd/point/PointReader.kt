@@ -11,7 +11,7 @@ class PointReader(
         return userPointRepository.getById(id)
     }
 
-    fun getHistory(id: Long): List<PointHistory> {
+    fun getHistories(id: Long): List<PointHistory> {
         return pointHistoryRepository.getAllByUserId(id)
     }
 }

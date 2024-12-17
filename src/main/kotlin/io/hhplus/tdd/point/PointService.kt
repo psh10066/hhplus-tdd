@@ -11,8 +11,8 @@ class PointService(
         return pointReader.getPoint(id)
     }
 
-    fun getHistory(id: Long): List<PointHistory> {
-        return pointReader.getHistory(id)
+    fun getHistories(id: Long): List<PointHistory> {
+        return pointReader.getHistories(id)
     }
 
     fun charge(id: Long, amount: Long): UserPoint {

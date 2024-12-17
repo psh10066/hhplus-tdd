@@ -35,7 +35,7 @@ class PointServiceTest {
     @Test
     fun `포인트 충전, 이용 내역을 조회할 수 있다`() {
         // given
-        given(pointReader.getHistory(1L)).willReturn(
+        given(pointReader.getHistories(1L)).willReturn(
             listOf(
                 PointHistory(1L, 1L, TransactionType.CHARGE, 2000L, System.currentTimeMillis()),
                 PointHistory(2L, 1L, TransactionType.USE, 1000L, System.currentTimeMillis()),
@@ -43,7 +43,7 @@ class PointServiceTest {
         )
 
         // when
-        val result = pointService.getHistory(1L)
+        val result = pointService.getHistories(1L)
 
         // then
         assertThat(result[0].type).isEqualTo(TransactionType.CHARGE)

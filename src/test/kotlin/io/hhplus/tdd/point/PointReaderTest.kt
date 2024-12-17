@@ -39,7 +39,7 @@ class PointReaderTest {
         pointHistoryRepository.insert(2L, 3000L, TransactionType.CHARGE, 789L) // 다른 회원
 
         // when
-        val result = pointReader.getHistory(1L)
+        val result = pointReader.getHistories(1L)
 
         // then
         assertThat(result).hasSize(2)
