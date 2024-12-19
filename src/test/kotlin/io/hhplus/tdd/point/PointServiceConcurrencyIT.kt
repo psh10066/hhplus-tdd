@@ -18,9 +18,9 @@ class PointServiceConcurrencyIT {
     @Test
     fun `동일한 사용자의 포인트 충전 요청이 동시에 들어온 경우 정합성을 보장할 수 있다`() {
         // when
-        concurrencyTestHelper(10) {
+        concurrencyTestHelper(10, Runnable {
             pointService.charge(1L, 100L)
-        }
+        })
 
         // then
         val result = pointService.getPoint(1L)
@@ -33,22 +33,42 @@ class PointServiceConcurrencyIT {
         pointService.charge(1L, 1000L)
 
         // when
-        concurrencyTestHelper(10) {
+        concurrencyTestHelper(10, Runnable {
             pointService.use(1L, 100L)
-        }
+        })
 
         // then
         val result = pointService.getPoint(1L)
         assertThat(result.point).isEqualTo(0L)
     }
 
-    private fun concurrencyTestHelper(times: Int, task: Runnable) {
-        val executorService = Executors.newFixedThreadPool(times)
+    @Test
+    fun `동일한 사용자의 포인트 충전, 사용 요청이 동시에 들어온 경우 정합성을 보장할 수 있다`() {
+        // given
+        pointService.charge(1L, 1000L)
+
+        // when
+        concurrencyTestHelper(3,
+            Runnable { pointService.use(1L, 100L) },
+            Runnable { pointService.charge(1L, 100L) },
+            Runnable { pointService.charge(1L, 100L) },
+            Runnable { pointService.use(1L, 100L) },
+        )
+
+        // then
+        val result = pointService.getPoint(1L)
+        assertThat(result.point).isEqualTo(1000L)
+    }
+
+    private fun concurrencyTestHelper(times: Int, vararg tasks: Runnable) {
+        val executorService = Executors.newFixedThreadPool(times * tasks.size)
         try {
             val futures = mutableListOf<Future<*>>()
             repeat(times) {
-                val future = executorService.submit(task)
-                futures.add(future)
+                for (task in tasks) {
+                    val future = executorService.submit(task)
+                    futures.add(future)
+                }
             }
             futures.forEach { it.get() }
         } finally {
