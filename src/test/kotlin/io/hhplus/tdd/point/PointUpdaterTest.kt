@@ -19,6 +19,7 @@ class PointUpdaterTest {
         pointUpdater = PointUpdater(userPointRepository, pointHistoryRepository)
     }
 
+    // 포인트 충전 Component 단위 테스트
     @Test
     fun `포인트를 충전할 수 있다`() {
         // given
@@ -32,6 +33,7 @@ class PointUpdaterTest {
         assertThat(result).isEqualTo(userPointRepository.getById(1L))
     }
 
+    // 포인트 사용 Component 단위 테스트
     @Test
     fun `포인트를 사용할 수 있다`() {
         // given
@@ -45,6 +47,7 @@ class PointUpdaterTest {
         assertThat(result).isEqualTo(userPointRepository.getById(1L))
     }
 
+    // 포인트 내역 저장 Component 단위 테스트
     @Test
     fun `포인트 충전 이력을 저장할 수 있다`() {
         // when

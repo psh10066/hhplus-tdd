@@ -15,6 +15,7 @@ class PointServiceConcurrencyIT {
     @Autowired
     private lateinit var pointService: PointService
 
+    // 포인트 충전 동시성 테스트
     @Test
     fun `동일한 사용자의 포인트 충전 요청이 동시에 들어온 경우 정합성을 보장할 수 있다`() {
         // when
@@ -27,6 +28,7 @@ class PointServiceConcurrencyIT {
         assertThat(result.point).isEqualTo(1000L)
     }
 
+    // 포인트 사용 동시성 테스트
     @Test
     fun `동일한 사용자의 포인트 사용 요청이 동시에 들어온 경우 정합성을 보장할 수 있다`() {
         // given
@@ -42,6 +44,7 @@ class PointServiceConcurrencyIT {
         assertThat(result.point).isEqualTo(0L)
     }
 
+    // 포인트 충전, 사용 혼합 동시성 테스트
     @Test
     fun `동일한 사용자의 포인트 충전, 사용 요청이 동시에 들어온 경우 정합성을 보장할 수 있다`() {
         // given

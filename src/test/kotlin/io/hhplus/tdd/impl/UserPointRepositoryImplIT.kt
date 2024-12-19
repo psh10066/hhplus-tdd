@@ -17,6 +17,7 @@ class UserPointRepositoryImplIT {
         userPointRepositoryImpl = UserPointRepositoryImpl(userPointTable)
     }
 
+    // 포인트 조회 Repository 통합 테스트
     @Test
     fun `포인트를 조회할 수 있다`() {
         // given
@@ -29,6 +30,7 @@ class UserPointRepositoryImplIT {
         assertThat(result).isEqualTo(savedPoint)
     }
 
+    // 포인트 저장 Repository 통합 테스트
     @Test
     fun `포인트를 저장할 수 있다`() {
         // when

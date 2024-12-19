@@ -17,6 +17,7 @@ class PointHistoryRepositoryImplIT {
         pointHistoryRepositoryImpl = PointHistoryRepositoryImpl(pointHistoryTable)
     }
 
+    // 포인트 내역 저장 Repository 통합 테스트
     @Test
     fun `포인트 충전, 이용 내역을 저장할 수 있다`() {
         // when
@@ -28,6 +29,7 @@ class PointHistoryRepositoryImplIT {
         assertThat(savedHistories[0]).isEqualTo(result)
     }
 
+    // 포인트 내역 조회 Repository 통합 테스트
     @Test
     fun `회원의 포인트 충전, 이용 내역을 조회할 수 있다`() {
         // given

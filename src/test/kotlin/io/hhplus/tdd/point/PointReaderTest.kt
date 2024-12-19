@@ -19,6 +19,7 @@ class PointReaderTest {
         pointReader = PointReader(userPointRepository, pointHistoryRepository)
     }
 
+    // 포인트 조회 Component 단위 테스트
     @Test
     fun `포인트를 조회할 수 있다`() {
         // given
@@ -31,6 +32,7 @@ class PointReaderTest {
         assertThat(result).isEqualTo(savedPoint)
     }
 
+    // 포인트 내역 조회 Component 단위 테스트
     @Test
     fun `회원의 포인트 충전, 이용 내역을 조회할 수 있다`() {
         // given
