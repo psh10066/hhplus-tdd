@@ -20,6 +20,7 @@ class PointServiceTest {
         pointService = PointService(pointReader, pointUpdater)
     }
 
+    // 포인트 조회 Service 단위 테스트
     @Test
     fun `포인트를 조회할 수 있다`() {
         // given
@@ -32,6 +33,7 @@ class PointServiceTest {
         assertThat(result.point).isEqualTo(100L)
     }
 
+    // 포인트 내역 조회 Service 단위 테스트
     @Test
     fun `포인트 충전, 이용 내역을 조회할 수 있다`() {
         // given
@@ -52,6 +54,7 @@ class PointServiceTest {
         assertThat(result[1].amount).isEqualTo(1000L)
     }
 
+    // 포인트 충전 Service 단위 테스트
     @Test
     fun `포인트를 충전할 수 있다`() {
         // given
@@ -65,6 +68,7 @@ class PointServiceTest {
         verify(pointUpdater).insertHistory(1L, 1100L, TransactionType.CHARGE, 123L)
     }
 
+    // 포인트 사용 Service 단위 테스트
     @Test
     fun `포인트를 사용할 수 있다`() {
         // given
